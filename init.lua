@@ -1,8 +1,6 @@
---  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
--- Set to true if you have a Nerd Font installed
 vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
@@ -10,16 +8,11 @@ vim.g.have_nerd_font = true
 -- NOTE: You can change these options as you wish!
 --  For more options, you can see `:help option-list`
 
--- Make line numbers default
 vim.opt.number = true
--- You can also add relative line numbers, for help with jumping.
---  Experiment for yourself to see if you like it!
 vim.opt.relativenumber = true
 
--- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
 
--- Don't show the mode, since it's already in status line
 vim.opt.showmode = false
 
 -- Sync clipboard between OS and Neovim.
@@ -670,7 +663,7 @@ require('lazy').setup({
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     opts = {
-      ensure_installed = { 'bash', 'c', 'html', 'lua', 'markdown', 'vim', 'vimdoc', 'java' },
+      ensure_installed = { 'bash', 'c', 'html', 'lua', 'markdown', 'vim', 'vimdoc', 'java', 'verilog' },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
@@ -696,6 +689,7 @@ require('lazy').setup({
       --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
     end,
   },
+
   -- NOTE: Next step on your Neovim journey: Add/Configure additional plugins for kickstart
   --
   --  Here are some example plugins that I've included in the kickstart repository.
