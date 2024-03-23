@@ -776,6 +776,20 @@ require('lazy').setup({
 
   { -- Collection of various small independent plugins/modules
     'echasnovski/mini.nvim',
+    init = function()
+      local whk = require 'which-key'
+      whk.register({
+        ['af'] = [[Outer Function]],
+        ['ac'] = [[Outer Class]],
+        ['ao'] = [[Outer Conditional/Loop]],
+        ['ap'] = [[Outer Parameter]],
+
+        ['if'] = [[Inner Function]],
+        ['ic'] = [[Inner Class]],
+        ['io'] = [[Inner Conditional/Loop]],
+        ['ip'] = [[Inner Parameter]],
+      }, { mode = 'o', prefix = '', preset = true })
+    end,
     config = function()
       -- Better Around/Inside textobjects
       --
