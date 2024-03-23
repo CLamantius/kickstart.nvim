@@ -1,7 +1,7 @@
 return {
   -- TODO finish configuring this and learn to fucking use it -.-
   'nvim-treesitter/nvim-treesitter-textobjects',
-  depenencies = { 'nvim-treesitter/nvim-treesitter' },
+  dependencies = { 'nvim-treesitter/nvim-treesitter' },
   config = function()
     ---@diagnostic disable-next-line: missing-fields
     require('nvim-treesitter.configs').setup {
