@@ -402,6 +402,8 @@ require('lazy').setup({
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
         callback = function(event)
+          -- require('jdtls').setup_dap { hotcodereplace = 'auto' }
+          -- require('jdtls.dap').setup_dap_main_class_configs()
           -- In this case, we create a function that lets us more easily define mappings specific
           -- for LSP related items. It sets the mode, buffer and description for us each time.
           local map = function(keys, func, desc, mode)
@@ -658,6 +660,12 @@ require('lazy').setup({
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-cmdline',
+      -- {
+      --   'Exafunction/codeium.nvim',
+      --   cmd = 'Codeium',
+      --   build = ':Codeium Auth',
+      --   opts = {},
+      -- },
     },
     config = function()
       local cmp = require 'cmp'
@@ -694,6 +702,11 @@ require('lazy').setup({
           end, { 'i', 's' }),
         },
         sources = {
+          --     {
+          --       name = 'codeium',
+          --       group_index = 1,
+          --       priority = 100,
+          --     },
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
           { name = 'path' },

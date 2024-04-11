@@ -137,6 +137,9 @@ return {
     dap.listeners.before.event_terminated['dapui_config'] = dapui.close
     dap.listeners.before.event_exited['dapui_config'] = dapui.close
 
+    dap.configurations.java = {
+      { type = 'java', request = 'launch', name = 'Launch file', program = '${file}' },
+    }
     -- Install golang specific config
     require('dap-go').setup {
       delve = {
