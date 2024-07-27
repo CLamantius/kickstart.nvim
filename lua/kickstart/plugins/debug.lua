@@ -20,8 +20,8 @@ return {
     'jay-babu/mason-nvim-dap.nvim',
 
     -- Add your own debuggers here
-    'leoluz/nvim-dap-go',
-    'microsoft/java-debug',
+    -- 'leoluz/nvim-dap-go',
+    -- 'microsoft/java-debug',
   },
   config = function()
     local dap = require 'dap'
@@ -40,7 +40,7 @@ return {
       -- online, please don't ask me how to install them :)
       ensure_installed = {
         -- Update this to ensure that you have the debuggers for the langs you want
-        'delve',
+        -- 'delve',
       },
     }
 
@@ -82,11 +82,11 @@ return {
     dap.listeners.after.event_initialized['dapui_config'] = dapui.open
     dap.listeners.before.event_terminated['dapui_config'] = dapui.close
     dap.listeners.before.event_exited['dapui_config'] = dapui.close
-    dap.configurations.java = {
-      { type = 'java', request = 'launch', name = 'Launch file', program = '${file}' },
-      { type = 'java', request = 'attach', name = 'Debug (Attach) - Remote', hostName = '192.168.0.80', port = '5005' },
-    }
+    --dap.configurations.java = {
+    --{ type = 'java', request = 'launch', name = 'Launch file', program = '${file}' },
+    --{ type = 'java', request = 'attach', name = 'Debug (Attach) - Remote', hostName = '192.168.0.80', port = '5005' },
+    --}
     -- Install golang specific config
-    require('dap-go').setup()
+    --require('dap-go').setup()
   end,
 }
