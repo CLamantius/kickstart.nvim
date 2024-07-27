@@ -196,54 +196,25 @@ require('lazy').setup({
   { -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
-    opts = {
-      -- delay between pressing a key and opening which-key (milliseconds)
-      -- this setting is independent of vim.o.timeoutlen
-      delay = 0,
-      icons = {
-        -- set icon mappings to true if you have a Nerd Font
-        mappings = vim.g.have_nerd_font,
-        -- If you are using a Nerd Font: set icons.keys to an empty table which will use the
-        -- default which-key.nvim defined Nerd Font icons, otherwise define a string table
-        keys = vim.g.have_nerd_font and {} or {
-          Up = '<Up> ',
-          Down = '<Down> ',
-          Left = '<Left> ',
-          Right = '<Right> ',
-          C = '<C-…> ',
-          M = '<M-…> ',
-          D = '<D-…> ',
-          S = '<S-…> ',
-          CR = '<CR> ',
-          Esc = '<Esc> ',
-          ScrollWheelDown = '<ScrollWheelDown> ',
-          ScrollWheelUp = '<ScrollWheelUp> ',
-          NL = '<NL> ',
-          BS = '<BS> ',
-          Space = '<Space> ',
-          Tab = '<Tab> ',
-          F1 = '<F1>',
-          F2 = '<F2>',
-          F3 = '<F3>',
-          F4 = '<F4>',
-          F5 = '<F5>',
-          F6 = '<F6>',
-          F7 = '<F7>',
-          F8 = '<F8>',
-          F9 = '<F9>',
-          F10 = '<F10>',
-          F11 = '<F11>',
-          F12 = '<F12>',
-        },
-      },
+    config = function() -- This is the function that runs, AFTER loading
+      require('which-key').setup {
+        ignore_duplicates = true,
+      }
 
       -- Document existing key chains
-      spec = {
+      require('which-key').add {
+        { '<leader>c', group = '[C]ode' },
+        { '<leader>c_', hidden = true },
+        { '<leader>d', group = '[D]ocument' },
+        { '<leader>d_', hidden = true },
+        { '<leader>r', group = '[R]ename' },
+        { '<leader>r_', hidden = true },
         { '<leader>s', group = '[S]earch' },
-        { '<leader>t', group = '[T]oggle' },
-        { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
-      },
-    },
+        { '<leader>s_', hidden = true },
+        { '<leader>w', group = '[W]orkspace' },
+        { '<leader>w_', hidden = true },
+      }
+    end,
   },
 
   -- NOTE: Plugins can specify dependencies.
@@ -541,8 +512,7 @@ require('lazy').setup({
         -- Some languages (like typescript) have entire language plugins that can be useful:
         --    https://github.com/pmizio/typescript-tools.nvim
         --
-        -- But for many setups, the LSP (`ts_ls`) will work just fine
-        -- ts_ls = {},
+        --tsserver = {},
         --
 
         lua_ls = {
@@ -764,19 +734,21 @@ require('lazy').setup({
     'echasnovski/mini.nvim',
     init = function()
       local whk = require 'which-key'
-      whk.register({
-        ['af'] = [[Outer Function]],
-        ['ac'] = [[Outer Class]],
-        ['ao'] = [[Outer Conditional/Loop]],
-        ['ap'] = [[Outer Parameter]],
-        ['ak'] = [[Outer Comment]],
-
-        ['if'] = [[Inner Function]],
-        ['ic'] = [[Inner Class]],
-        ['io'] = [[Inner Conditional/Loop]],
-        ['ip'] = [[Inner Parameter]],
-        ['ik'] = [[Inner Comment]],
-      }, { mode = 'o', prefix = '', preset = true })
+      whk.add {
+        {
+          mode = { 'o' },
+          { 'ac', desc = 'Outer Class' },
+          { 'af', desc = 'Outer Function' },
+          { 'ak', desc = 'Outer Comment' },
+          { 'ao', desc = 'Outer Conditional/Loop' },
+          { 'ap', desc = 'Outer Parameter' },
+          { 'ic', desc = 'Inner Class' },
+          { 'if', desc = 'Inner Function' },
+          { 'ik', desc = 'Inner Comment' },
+          { 'io', desc = 'Inner Conditional/Loop' },
+          { 'ip', desc = 'Inner Parameter' },
+        },
+      }
     end,
     config = function()
       -- Better Around/Inside textobjects
