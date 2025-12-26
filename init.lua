@@ -122,6 +122,26 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+vim.api.nvim_create_autocmd('ColorScheme', {
+  callback = function()
+    --vim.api.nvim_set_hl(0, 'LspReferenceTarget', {})
+    local highlights = {
+      'Normal',
+      'LineNr',
+      'Folded',
+      'NonText',
+      'SpecialKey',
+      'VertSplit',
+      'SignColumn',
+      'EndOfBuffer',
+      --     'TablineFill', -- this is specific to how I like my tabline to look like
+    }
+    for _, name in pairs(highlights) do
+      vim.cmd.highlight(name .. ' guibg=none ctermbg=none')
+    end
+  end,
+})
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
@@ -238,7 +258,7 @@ require('lazy').setup({
       },
 
       -- Document existing key chains
-      require('which-key').add {
+      spec = {
         { '<leader>c', group = '[C]ode' },
         { '<leader>c_', hidden = true },
         { '<leader>d', group = '[D]ocument' },
@@ -416,7 +436,7 @@ require('lazy').setup({
 
       -- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
       -- used for completion, annotations and signatures of Neovim apis
-      { 'folke/neodev.nvim', opts = {} },
+      --{ 'folke/neodev.nvim', opts = {} },
       'nvim-java/nvim-java',
       'saghen/blink.cmp',
     },
@@ -584,7 +604,7 @@ require('lazy').setup({
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`ts_ls`) will work just fine
-        -- ts_ls = {},
+        ts_ls = {},
         --
 
         lua_ls = {
@@ -621,9 +641,9 @@ require('lazy').setup({
         'stylua', -- Used to format Lua code
       })
 
-      require('mason-tool-installer').setup { ensure_installed = ensure_installed }
+      require('mason-tool-installer').setup { ensurd_installed = ensure_installed }
 
-      require('java').setup()
+      --require('java').setup()
       require('mason-lspconfig').setup {
         ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
         automatic_installation = false,
@@ -802,10 +822,12 @@ require('lazy').setup({
     end,
     opts = {
       transparent = true,
+      styles = {
+        sidebars = 'transparent',
+        floats = 'transparent',
+      },
+    },
   },
-  },
-  -- { 'catppuccin/nvim', name = 'catppuccin', priority = 1000 },
-
   -- Highlight todo, notes, etc in comments
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
 
@@ -883,7 +905,7 @@ require('lazy').setup({
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'java'},
+      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'java' },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
