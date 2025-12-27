@@ -22,6 +22,10 @@ vim.schedule(function()
   vim.o.clipboard = 'unnamedplus'
 end)
 
+vim.o.expandtab = true
+vim.o.tabstop = 2
+vim.o.shiftwidth = 2
+
 -- Enable break indent
 vim.o.breakindent = true
 
@@ -918,7 +922,19 @@ require('lazy').setup({
       require('mini.surround').setup()
 
       require('mini.sessions').setup()
-      require('mini.move').setup()
+      require('mini.move').setup {
+        mappings = {
+          left = '<S-left>',
+          right = '<S-right>',
+          down = '<S-down>',
+          up = '<S-up>',
+
+          line_left = '<S-left>',
+          line_right = '<S-right>',
+          line_down = '<S-down>',
+          line_up = '<S-up>',
+        },
+      }
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
       --  and try some other statusline plugin
