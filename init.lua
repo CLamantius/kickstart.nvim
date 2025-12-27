@@ -420,6 +420,43 @@ require('lazy').setup({
       },
     },
   },
+  -- lazy.nvim
+  {
+    'folke/snacks.nvim',
+    ---@type snacks.Config
+    opts = {
+      dashboard = {
+        sections = {
+          { section = 'header' },
+          {
+            pane = 2,
+            section = 'terminal',
+            cmd = 'colorscript -e square',
+            height = 5,
+            padding = 1,
+          },
+          { section = 'keys', gap = 1, padding = 1 },
+          { pane = 2, icon = ' ', title = 'Recent Files', section = 'recent_files', indent = 2, padding = 1 },
+          { pane = 2, icon = ' ', title = 'Projects', section = 'projects', indent = 2, padding = 1 },
+          {
+            pane = 2,
+            icon = ' ',
+            title = 'Git Status',
+            section = 'terminal',
+            enabled = function()
+              return Snacks.git.get_root() ~= nil
+            end,
+            cmd = 'git status --short --branch --renames',
+            height = 5,
+            padding = 1,
+            ttl = 5 * 60,
+            indent = 3,
+          },
+          { section = 'startup' },
+        },
+      },
+    },
+  },
   {
     -- Main LSP Configuration
     'neovim/nvim-lspconfig',
@@ -641,7 +678,7 @@ require('lazy').setup({
         'stylua', -- Used to format Lua code
       })
 
-      require('mason-tool-installer').setup { ensurd_installed = ensure_installed }
+      require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       --require('java').setup()
       require('mason-lspconfig').setup {
@@ -880,6 +917,8 @@ require('lazy').setup({
       -- - sr)'  - [S]urround [R]eplace [)] [']
       require('mini.surround').setup()
 
+      require('mini.sessions').setup()
+      require('mini.move').setup()
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
       --  and try some other statusline plugin
@@ -925,14 +964,13 @@ require('lazy').setup({
     --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
   },
 
-  --[[{
-    'lewis6991/spellsitter.nvim',
-    lazy = false,
-    config = function()
-      require('spellsitter').setup()
-    end,
-  },
-  --]]
+  -- {
+  --   'lewis6991/spellsitter.nvim',
+  --   lazy = false,
+  --   config = function()
+  --     require('spellsitter').setup()
+  --   end,
+  -- },
   -- NOTE: Next step on your Neovim journey: Add/Configure additional plugins for kickstart
   --
   --  Here are some example plugins that I've included in the Kickstart repository.
